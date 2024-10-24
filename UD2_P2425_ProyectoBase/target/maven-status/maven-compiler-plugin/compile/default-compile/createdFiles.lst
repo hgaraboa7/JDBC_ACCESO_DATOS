@@ -1,5 +1,6 @@
 controlador\factory\MySQLDAOFactory.class
 modelo\dao\Dao.class
+vista\Principal$2.class
 modelo\dao\DepartamentoDAO.class
 UD2_P2425_ProyectoBase.class
 vista\Principal.class

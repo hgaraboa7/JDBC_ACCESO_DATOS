@@ -8,6 +8,7 @@ import controlador.factory.DAOFactory;
 import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import modelo.dao.DepartamentoDAO;
 import modelo.dao.EmpleadoDAO;
 import vista.Principal;
@@ -54,7 +55,7 @@ public class controladorPrincipal {
         try {
             Connection conn;
             conn= mySQLFactory.getConnection();
-            depDAO.listarlosdatos(conn,ventana.getTxtArea());
+            depDAO.listarlosdatos(conn,ventana.getTxtAreaDep(), ventana.getLbltotaldep());
             
              
             mySQLFactory.releaseConnection(conn);
@@ -74,7 +75,7 @@ public class controladorPrincipal {
         try {
             Connection conn;
             conn= mySQLFactory.getConnection();
-            empDAO.listarlosdatos(conn,ventana.getTxtArea2());
+            empDAO.listarlosdatos(conn,ventana.getTxtAreaEmp());
             
              
             mySQLFactory.releaseConnection(conn);
@@ -87,4 +88,48 @@ public class controladorPrincipal {
         
      }
 
+    public static void listardepartamentopornum() {
+        if(ventana.getTxtnumdep().getText().isEmpty()){
+                JOptionPane.showMessageDialog(null,"faltan datos");
+                return;
+            }
+        try {
+            //siempre conectar y desconectar
+            Connection conn;
+            conn= mySQLFactory.getConnection();
+           
+            //pasar solo numero int Integer.parseInt(ventana.getTxtnumdep().getText().trim()
+            depDAO.listarlosdatospornumdep(conn,Integer.parseInt(ventana.getTxtnumdep().getText().trim()), ventana.getTxtAreaDep());
+             
+            mySQLFactory.releaseConnection(conn);
+        } catch(NumberFormatException ex1){
+            JOptionPane.showMessageDialog(null, "entrada de datos incorrecta");
+        } catch (Exception ex) {
+            Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+     }
+    
+      public static void listarempleadopornumdep() {
+        if(ventana.getTxtnumdep().getText().isEmpty()){
+                JOptionPane.showMessageDialog(null,"faltan datos");
+                return;
+            }
+        try {
+            //siempre conectar y desconectar
+            Connection conn;
+            conn= mySQLFactory.getConnection();
+           
+            //pasar solo numero int Integer.parseInt(ventana.getTxtnumdep().getText().trim()
+            empDAO.listarlosdatospornumdep(conn,Integer.parseInt(ventana.getTxtnumdep().getText().trim()), ventana.getTxtAreaEmp());
+             
+            mySQLFactory.releaseConnection(conn);
+        } catch(NumberFormatException ex1){
+            JOptionPane.showMessageDialog(null, "entrada de datos incorrecta");
+        } catch (Exception ex) {
+            Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+}
 }

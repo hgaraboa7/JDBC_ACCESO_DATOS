@@ -5,7 +5,9 @@
 package vista;
 
 import controlador.controladorPrincipal;
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  *
@@ -33,9 +35,13 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtArea = new javax.swing.JTextArea();
+        txtAreaDep = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        txtArea2 = new javax.swing.JTextArea();
+        txtAreaEmp = new javax.swing.JTextArea();
+        labeldep = new javax.swing.JLabel();
+        txtnumdep = new javax.swing.JTextField();
+        lbltotaldep = new javax.swing.JLabel();
+        btnaceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -47,13 +53,24 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        txtArea.setColumns(20);
-        txtArea.setRows(5);
-        jScrollPane1.setViewportView(txtArea);
+        txtAreaDep.setColumns(20);
+        txtAreaDep.setRows(5);
+        jScrollPane1.setViewportView(txtAreaDep);
 
-        txtArea2.setColumns(20);
-        txtArea2.setRows(5);
-        jScrollPane2.setViewportView(txtArea2);
+        txtAreaEmp.setColumns(20);
+        txtAreaEmp.setRows(5);
+        jScrollPane2.setViewportView(txtAreaEmp);
+
+        labeldep.setText("NºDep");
+
+        lbltotaldep.setText("jLabel1");
+
+        btnaceptar.setText("Aceptar");
+        btnaceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnaceptarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -61,19 +78,40 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(labeldep)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtnumdep, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(btnaceptar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lbltotaldep)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labeldep)
+                            .addComponent(txtnumdep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnaceptar)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addComponent(lbltotaldep)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,20 +133,52 @@ public class Principal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_formWindowOpened
 
-    public JTextArea getTxtArea() {
-        return txtArea;
+    private void btnaceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaceptarActionPerformed
+      
+        controladorPrincipal.listardepartamentopornum();
+        
+        controladorPrincipal.listarempleadopornumdep();
+        
+    }//GEN-LAST:event_btnaceptarActionPerformed
+
+    public JTextArea getTxtAreaDep() {
+        return txtAreaDep;
     }
 
-    public void setTxtArea(JTextArea txtArea) {
-        this.txtArea = txtArea;
+    public void setTxtAreaDep(JTextArea txtAreaDep) {
+        this.txtAreaDep = txtAreaDep;
     }
 
-    public JTextArea getTxtArea2() {
-        return txtArea2;
+    public JTextArea getTxtAreaEmp() {
+        return txtAreaEmp;
     }
 
-    public void setTxtArea2(JTextArea txtArea2) {
-        this.txtArea2 = txtArea2;
+    public void setTxtAreaEmp(JTextArea TxtAreaEmp) {
+        this.txtAreaEmp = TxtAreaEmp;
+    }
+
+    public JTextField getTxtnumdep() {
+        return txtnumdep;
+    }
+
+    public void setTxtnumdep(JTextField txtnumdep) {
+        this.txtnumdep = txtnumdep;
+    }
+
+    public JLabel getTxtTotaldep() {
+        return lbltotaldep;
+    }
+
+    public void setTxtTotaldep(JLabel txtTotaldep) {
+        this.lbltotaldep = txtTotaldep;
+    }
+
+    public JLabel getLbltotaldep() {
+        return lbltotaldep;
+    }
+
+    public void setLbltotaldep(JLabel lbltotaldep) {
+        this.lbltotaldep = lbltotaldep;
     }
     
     
@@ -116,9 +186,13 @@ public class Principal extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnaceptar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea txtArea;
-    private javax.swing.JTextArea txtArea2;
+    private javax.swing.JLabel labeldep;
+    private javax.swing.JLabel lbltotaldep;
+    private javax.swing.JTextArea txtAreaDep;
+    private javax.swing.JTextArea txtAreaEmp;
+    private javax.swing.JTextField txtnumdep;
     // End of variables declaration//GEN-END:variables
 }
