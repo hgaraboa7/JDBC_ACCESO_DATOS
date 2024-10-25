@@ -40,29 +40,31 @@ public class EmpleadoDAO {
      
         txtArea.setText("");
         String consulta="select * from empleados where dept_no=?";
-        PreparedStatement sentencia=conn.prepareStatement(consulta);
+        PreparedStatement sentencia=conn.prepareStatement(consulta, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         
+        /*
         String consulta2="select count(*) from Empleados where dept_no=?";
         PreparedStatement sentencia2=conn.prepareStatement(consulta2);
+        */
         
         sentencia.setInt(1, numdep);
 
         ResultSet rs=sentencia.executeQuery();
         
-        
+        /*
         sentencia2.setInt(1,numdep);
         
         ResultSet rs2=sentencia2.executeQuery();
+        */
         
         
         
-        //error por type forward only
         
-//        if(!rs.next()){
-//           txtArea.append("no hay empleados en ese departamento") ;
-//
-//        }
-//        rs.beforeFirst();
+       if(!rs.next()){
+          txtArea.append("no hay empleados en ese departamento") ;
+          return;
+       }
+        rs.beforeFirst();
 
         /*
 
@@ -87,10 +89,10 @@ public class EmpleadoDAO {
             
         } 
         
-        if((rs2.next())&&(rs2.getInt(1)==0)){
+       /* if((rs2.next())&&(rs2.getInt(1)==0)){
             
            txtArea.append("no hay empleados en ese departamento");
-       }
+       }*/
         
        
         

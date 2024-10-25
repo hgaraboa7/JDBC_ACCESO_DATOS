@@ -133,9 +133,7 @@ public class controladorPrincipal {
             empDAO.listarlosdatospornumdep(conn,Integer.parseInt(ventana.getTxtnumdep().getText().trim()), ventana.getTxtAreaEmp());
              
             mySQLFactory.releaseConnection(conn);
-        } catch(NumberFormatException ex1){
-            JOptionPane.showMessageDialog(null, "entrada de datos incorrecta");
-        } catch (Exception ex) {
+        }  catch (Exception ex) {
             Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
 

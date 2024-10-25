@@ -14,3 +14,4 @@ vista\Principal$4.class
 controlador\factory\DAOFactory.class
 controlador\pool\ConnectionPool.class
 controlador\controladorPrincipal.class
+modelo\vo\Departamento.class
