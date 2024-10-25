@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 /**
@@ -40,10 +41,18 @@ public class EmpleadoDAO {
         txtArea.setText("");
         String consulta="select * from empleados where dept_no=?";
         PreparedStatement sentencia=conn.prepareStatement(consulta);
+        
+        String consulta2="select count(*) from Empleados where dept_no=?";
+        PreparedStatement sentencia2=conn.prepareStatement(consulta2);
+        
         sentencia.setInt(1, numdep);
 
-        
         ResultSet rs=sentencia.executeQuery();
+        
+        
+        sentencia2.setInt(1,numdep);
+        
+        ResultSet rs2=sentencia2.executeQuery();
         
         
         
@@ -51,10 +60,14 @@ public class EmpleadoDAO {
         
 //        if(!rs.next()){
 //           txtArea.append("no hay empleados en ese departamento") ;
+//
 //        }
-//        rs.first();
+//        rs.beforeFirst();
 
-        
+        /*
+
+
+
         int contador=0;
 
         while(rs.next()){
@@ -65,10 +78,32 @@ public class EmpleadoDAO {
         if(contador==0){
          txtArea.append("no hay empleados en ese departamento");   
         }
+        */
+        
+        
+        
+        while(rs.next()){
+            txtArea.append(rs.getInt(1)+" "+rs.getString(2)+" "+rs.getString(3)+rs.getString("dept_no")+"\n");
+            
+        } 
+        
+        if((rs2.next())&&(rs2.getInt(1)==0)){
+            
+           txtArea.append("no hay empleados en ese departamento");
+       }
+        
+       
+        
+        
+        
+        
         
 
 
     }
+        
+        
+        
     
     
 }

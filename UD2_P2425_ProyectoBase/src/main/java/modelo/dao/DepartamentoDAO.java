@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -44,7 +45,7 @@ public class DepartamentoDAO {
         
      }
 
-    public void listarlosdatospornumdep(Connection conn, int numdep, JTextArea txtArea) throws SQLException {
+    public void listarlosdatospornumdep(Connection conn, int numdep, JTextArea txtArea, JLabel lbltotaldep) throws SQLException {
   
         //pepared se usa cuando hay parametros
         txtArea.setText("");
@@ -62,8 +63,40 @@ public class DepartamentoDAO {
         }else{
              txtArea.append("No hay departamentos");
         }
-
+        consulta="select count(*) from Departamentos";
+        rs=sentencia.executeQuery(consulta);
+        
+         if(rs.next()){
+           lbltotaldep.setText("total departamentos: "+rs.getInt(1)+"");
+       }
 
     }
+
+    public void mostrardosdatos(Connection conn, int numdep,JTextField locdep, JTextField nombredep) throws SQLException {
+        
+        locdep.setText("");
+        nombredep.setText("");
+         
+        String consulta="select * from Departamentos where dept_no=?";
+        PreparedStatement sentencia=conn.prepareStatement(consulta);
+        sentencia.setInt(1, numdep);
+        
+        
+        
+        ResultSet rs=sentencia.executeQuery();
+        
+        if(rs.next()){
+            nombredep.setText(rs.getString(2));
+            locdep.setText(rs.getString(3));
+            
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "no hay departamentos");
+        }
+        
+        
+        
+        
+     }
     
 }

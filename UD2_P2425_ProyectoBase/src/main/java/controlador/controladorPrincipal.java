@@ -99,7 +99,7 @@ public class controladorPrincipal {
             conn= mySQLFactory.getConnection();
            
             //pasar solo numero int Integer.parseInt(ventana.getTxtnumdep().getText().trim()
-            depDAO.listarlosdatospornumdep(conn,Integer.parseInt(ventana.getTxtnumdep().getText().trim()), ventana.getTxtAreaDep());
+            depDAO.listarlosdatospornumdep(conn,Integer.parseInt(ventana.getTxtnumdep().getText().trim()), ventana.getTxtAreaDep(), ventana.getLbltotaldep());
              
             mySQLFactory.releaseConnection(conn);
         } catch(NumberFormatException ex1){
@@ -120,6 +120,14 @@ public class controladorPrincipal {
             //siempre conectar y desconectar
             Connection conn;
             conn= mySQLFactory.getConnection();
+            
+            //existe departamento?
+            
+            
+            
+            
+            
+            
            
             //pasar solo numero int Integer.parseInt(ventana.getTxtnumdep().getText().trim()
             empDAO.listarlosdatospornumdep(conn,Integer.parseInt(ventana.getTxtnumdep().getText().trim()), ventana.getTxtAreaEmp());
@@ -132,4 +140,34 @@ public class controladorPrincipal {
         }
 
 }
+
+    public static void mostrardatos() {
+        
+        if(ventana.getTxtnumdep2().getText().isEmpty()){
+                JOptionPane.showMessageDialog(null,"faltan datos");
+                return;
+            }
+        
+        try {
+           
+            Connection conn;
+            conn= mySQLFactory.getConnection();
+           
+          
+            depDAO.mostrardosdatos(conn,Integer.parseInt(ventana.getTxtnumdep2().getText().trim()),ventana.getTxtlocdep(), ventana.getTxtnombredep() );
+             
+            mySQLFactory.releaseConnection(conn);
+        } catch(NumberFormatException ex1){
+            JOptionPane.showMessageDialog(null, "entrada de datos incorrecta");
+        } catch (Exception ex) {
+            Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        
+        
+        
+        
+     }
 }
