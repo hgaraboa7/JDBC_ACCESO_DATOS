@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import modelo.vo.Departamento;
 
 /**
  *
@@ -97,6 +98,13 @@ public class DepartamentoDAO {
         
         
         
+     }
+
+    public Departamento buscardepartamento(JTextField txtnumdep) {
+        
+        
+        
+        return null;
      }
     
 }

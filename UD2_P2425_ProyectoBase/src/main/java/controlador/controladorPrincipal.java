@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.dao.DepartamentoDAO;
 import modelo.dao.EmpleadoDAO;
+import modelo.vo.Departamento;
 import vista.Principal;
 
 /**
@@ -123,7 +124,7 @@ public class controladorPrincipal {
             
             //existe departamento?
             
-            
+            Departamento d=depDAO.buscardepartamento(ventana.getTxtnumdep());
             
             
             
