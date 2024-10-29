@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -106,5 +107,35 @@ public class DepartamentoDAO {
         
         return null;
      }
+
+    public void listarlosdatoscombobox(Connection conn, JLabel lbltotaldep,DefaultComboBoxModel modelocombo) throws SQLException {
+    
+        lbltotaldep.setText("");
+        String consulta="select * from Departamentos";
+    
+        Statement sentencia=conn.createStatement();
+        
+        ResultSet rs=sentencia.executeQuery(consulta);
+        
+        while(rs.next()){
+            
+         // ta.append(rs.getInt(1)+" "+rs.getString("dnombre")+" "+rs.getString(3)+"\n");
+         
+         modelocombo.addElement(new Departamento(rs.getInt(1),rs.getString(2),rs.getString(3)));
+         
+         
+            
+        }
+        consulta="select count(*) from Departamentos";
+        rs=sentencia.executeQuery(consulta);
+        
+       if(rs.next()){
+           lbltotaldep.setText("total departamentos: "+rs.getInt(1)+"");
+       }
+        
+
+
+
+    }
     
 }

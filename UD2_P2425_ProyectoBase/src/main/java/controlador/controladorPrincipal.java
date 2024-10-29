@@ -8,6 +8,7 @@ import controlador.factory.DAOFactory;
 import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import modelo.dao.DepartamentoDAO;
 import modelo.dao.EmpleadoDAO;
@@ -26,11 +27,16 @@ public class controladorPrincipal {
     public static DepartamentoDAO depDAO;
     public static EmpleadoDAO empDAO;
     
+    
+    static DefaultComboBoxModel modelocombo=new DefaultComboBoxModel();
+    
     public static Principal ventana = new Principal();
 
     public static void iniciar() {
         ventana.setVisible(true);
         ventana.setLocationRelativeTo(null);
+        
+        ventana.getCmbDepartamento().setModel(modelocombo);
     }
 
     public static void iniciaFactory() {
@@ -128,10 +134,9 @@ public class controladorPrincipal {
             
             
             
-            
            
-            //pasar solo numero int Integer.parseInt(ventana.getTxtnumdep().getText().trim()
-            empDAO.listarlosdatospornumdep(conn,Integer.parseInt(ventana.getTxtnumdep().getText().trim()), ventana.getTxtAreaEmp());
+            
+            empDAO.listarlosdatospornumdep(conn,Integer.parseInt(ventana.getTxtnumdep().getText().trim()), ventana.getTxtAreaEmp(),  ventana.getLbltotalemp());
              
             mySQLFactory.releaseConnection(conn);
         }  catch (Exception ex) {
@@ -169,4 +174,43 @@ public class controladorPrincipal {
         
         
      }
+
+    public static void listardepartamentoscombobox() {
+        
+        try {
+            Connection conn;
+            conn= mySQLFactory.getConnection();
+            
+            depDAO.listarlosdatoscombobox(conn, ventana.getLbltotaldep(), modelocombo);
+            
+            
+            
+             
+            mySQLFactory.releaseConnection(conn);
+        } catch (Exception ex) {
+            Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+     }
+
+    public static void listarempleadopornumdepcombobox() {
+        
+        
+        try {
+            Connection conn;
+            conn= mySQLFactory.getConnection();
+            //combobox
+            empDAO.listarlosdatospornumdep(conn, ventana.getCmbDepartamento().getItemAt(ventana.getCmbDepartamento().getSelectedIndex()).getDept_no(), ventana.getTxtAreaEmp(),  ventana.getLbltotalemp());
+           
+            
+             
+            mySQLFactory.releaseConnection(conn);
+        } catch (Exception ex) {
+            Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+      }
 }

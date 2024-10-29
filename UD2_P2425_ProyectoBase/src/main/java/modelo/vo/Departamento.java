@@ -42,6 +42,11 @@ public class Departamento {
         this.nombre = nombre;
         this.loc = loc;
     }
+
+    @Override
+    public String toString() {
+        return  nombre ;
+    }
     
     
     

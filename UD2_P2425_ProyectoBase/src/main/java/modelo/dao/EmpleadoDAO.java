@@ -9,8 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import modelo.vo.Departamento;
 
 /**
  *
@@ -35,7 +37,7 @@ public class EmpleadoDAO {
        
      }
      
-       public void listarlosdatospornumdep(Connection conn, int numdep, JTextArea txtArea) throws SQLException {
+       public void listarlosdatospornumdep(Connection conn, int numdep, JTextArea txtArea,JLabel lbltotalemp ) throws SQLException {
   
      
         txtArea.setText("");
@@ -66,21 +68,7 @@ public class EmpleadoDAO {
        }
         rs.beforeFirst();
 
-        /*
-
-
-
-        int contador=0;
-
-        while(rs.next()){
-            txtArea.append(rs.getInt(1)+" "+rs.getString(2)+" "+rs.getString(3)+rs.getString("dept_no")+"\n");
-            contador++;
-        } 
-        
-        if(contador==0){
-         txtArea.append("no hay empleados en ese departamento");   
-        }
-        */
+       
         
         
         
@@ -89,11 +77,12 @@ public class EmpleadoDAO {
             
         } 
         
-       /* if((rs2.next())&&(rs2.getInt(1)==0)){
-            
-           txtArea.append("no hay empleados en ese departamento");
-       }*/
+      consulta="select count(*) from empleados";
+        rs=sentencia.executeQuery(consulta);
         
+         if(rs.next()){
+           lbltotalemp.setText("total empleados: "+rs.getInt(1)+"");
+       }
        
         
         
@@ -102,6 +91,17 @@ public class EmpleadoDAO {
         
 
 
+    }
+
+    public void listarlosdatospornumdepcombobox(Connection conn, JComboBox<Departamento> cmbDepartamento, JTextArea txtAreaEmp, JLabel lbltotalemp) {
+    
+        
+        
+        
+    
+    
+    
+    
     }
         
         
