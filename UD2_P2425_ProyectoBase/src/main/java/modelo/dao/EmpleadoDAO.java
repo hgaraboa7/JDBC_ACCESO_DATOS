@@ -41,6 +41,8 @@ public class EmpleadoDAO {
   
      
         txtArea.setText("");
+        lbltotalemp.setText("");
+        
         String consulta="select * from empleados where dept_no=?";
         PreparedStatement sentencia=conn.prepareStatement(consulta, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         
@@ -77,11 +79,20 @@ public class EmpleadoDAO {
             
         } 
         
-      consulta="select count(*) from empleados";
-        rs=sentencia.executeQuery(consulta);
         
-         if(rs.next()){
-           lbltotalemp.setText("total empleados: "+rs.getInt(1)+"");
+        
+        
+     String consulta2="select count(*) from empleados where dept_no=?";
+         PreparedStatement sentencia2=conn.prepareStatement(consulta2);
+         
+          sentencia2.setInt(1, numdep);
+         
+           ResultSet rs2=sentencia2.executeQuery();
+    
+        
+        
+         if(rs2.next()){
+           lbltotalemp.setText("total empleados: "+rs2.getInt(1)+"");
        }
        
         
@@ -93,16 +104,7 @@ public class EmpleadoDAO {
 
     }
 
-    public void listarlosdatospornumdepcombobox(Connection conn, JComboBox<Departamento> cmbDepartamento, JTextArea txtAreaEmp, JLabel lbltotalemp) {
-    
-        
-        
-        
-    
-    
-    
-    
-    }
+   
         
         
         

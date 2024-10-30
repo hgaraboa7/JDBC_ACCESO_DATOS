@@ -92,8 +92,6 @@ public class DepartamentoDAO {
             locdep.setText(rs.getString(3));
             
             
-        }else{
-            JOptionPane.showMessageDialog(null, "no hay departamentos");
         }
         
         
@@ -110,6 +108,8 @@ public class DepartamentoDAO {
 
     public void listarlosdatoscombobox(Connection conn, JLabel lbltotaldep,DefaultComboBoxModel modelocombo) throws SQLException {
     
+        modelocombo.removeAllElements();
+        
         lbltotaldep.setText("");
         String consulta="select * from Departamentos";
     
@@ -137,5 +137,30 @@ public class DepartamentoDAO {
 
 
     }
+
+    public void insertar(Connection conn, Integer numdep, String nombre, String loc) throws SQLException {
+        
+        String consulta="INSERT INTO departamentos (dept_no, dnombre, loc) VALUES (?, ?, ?);";
+        
+        PreparedStatement sentencia=conn.prepareStatement(consulta);
+        
+        
+        sentencia.setInt(1, numdep);
+        sentencia.setString(2, nombre);
+        sentencia.setString(3, loc);
+        
+        
+        
+        sentencia.executeUpdate();
+        
+        
+        
+        
+        
+       }
+
+    
+
+    
     
 }

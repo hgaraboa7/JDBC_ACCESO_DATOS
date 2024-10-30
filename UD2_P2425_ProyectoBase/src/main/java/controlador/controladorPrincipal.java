@@ -177,6 +177,8 @@ public class controladorPrincipal {
 
     public static void listardepartamentoscombobox() {
         
+       
+        
         try {
             Connection conn;
             conn= mySQLFactory.getConnection();
@@ -209,6 +211,33 @@ public class controladorPrincipal {
         } catch (Exception ex) {
             Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+        
+      }
+
+    public static void insertarsincomprobar() {
+        
+        Connection conn=null;
+        
+        if(ventana.getTxtnumdep2().getText().isEmpty()|| ventana.getTxtnombredep().getText().isEmpty()||ventana.getTxtlocdep().getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "faltan datos");
+            return;
+        }
+        
+        try {
+            conn=mySQLFactory.getConnection();
+            //insertamos directamente
+           // JOptionPane.showMessageDialog(null,depDAO.insertar());
+            depDAO.insertar(conn, Integer.valueOf(ventana.getTxtnumdep2().getText()),ventana.getTxtnombredep().getText(),ventana.getTxtlocdep().getText());
+            
+            conn.commit();
+            
+            
+        } catch (Exception ex) {
+            Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
         
         
