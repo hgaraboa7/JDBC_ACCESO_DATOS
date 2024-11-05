@@ -23,6 +23,8 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         controladorPrincipal.iniciaFactory();
+        //que lleve el focus
+        jLabel1.requestFocusInWindow();
     }
     
     
@@ -115,6 +117,33 @@ public class Principal extends javax.swing.JFrame {
         });
 
         cmbDepartamento.setToolTipText("");
+        cmbDepartamento.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbDepartamentoItemStateChanged(evt);
+            }
+        });
+        cmbDepartamento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cmbDepartamentoFocusLost(evt);
+            }
+        });
+        cmbDepartamento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbDepartamentoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cmbDepartamentoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cmbDepartamentoMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cmbDepartamentoMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cmbDepartamentoMouseReleased(evt);
+            }
+        });
         cmbDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbDepartamentoActionPerformed(evt);
@@ -129,6 +158,11 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnBorrar.setText("Borrar");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
 
         btnModificar.setText("modificar");
 
@@ -195,12 +229,12 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(txtlocdep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificar))
                 .addGap(85, 85, 85)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnaceptar)
                         .addComponent(txtnumdep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(labeldep)))
+                        .addComponent(labeldep))
+                    .addComponent(cmbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -261,23 +295,61 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtlocdepActionPerformed
 
-    private void cmbDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDepartamentoActionPerformed
-  
-        
-        
-        controladorPrincipal.listarempleadopornumdepcombobox();
-        
-        
-        
-    }//GEN-LAST:event_cmbDepartamentoActionPerformed
-
     private void btninsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninsertarActionPerformed
         
         controladorPrincipal.insertarsincomprobar();
+        controladorPrincipal.listardepartamentoscombobox();
     
         
         
     }//GEN-LAST:event_btninsertarActionPerformed
+
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+       
+        controladorPrincipal.borrarsincomprobar();
+        controladorPrincipal.listardepartamentoscombobox();
+        
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void cmbDepartamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDepartamentoItemStateChanged
+      
+        //solucionar error despues de realizar insercion, borrado modif, al actualizar el combo otras vez
+        //da java.lang.NullPointerException: 
+        
+        //controladorPrincipal.listarempleadopornumdepcombobox();
+    }//GEN-LAST:event_cmbDepartamentoItemStateChanged
+
+    private void cmbDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDepartamentoActionPerformed
+      //solucionar error despues de realizar insercion, borrado modif, al actualizar el combo otras vez
+        //da java.lang.NullPointerException: 
+        
+        
+        controladorPrincipal.listarempleadopornumdepcombobox();
+    }//GEN-LAST:event_cmbDepartamentoActionPerformed
+
+    private void cmbDepartamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbDepartamentoMouseClicked
+     //  controladorPrincipal.listarempleadopornumdepcombobox();
+    }//GEN-LAST:event_cmbDepartamentoMouseClicked
+
+    private void cmbDepartamentoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbDepartamentoMouseEntered
+      // controladorPrincipal.listarempleadopornumdepcombobox();
+    }//GEN-LAST:event_cmbDepartamentoMouseEntered
+
+    private void cmbDepartamentoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbDepartamentoMousePressed
+     //   controladorPrincipal.listarempleadopornumdepcombobox();
+    }//GEN-LAST:event_cmbDepartamentoMousePressed
+
+    private void cmbDepartamentoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbDepartamentoMouseExited
+       // controladorPrincipal.listarempleadopornumdepcombobox();
+    }//GEN-LAST:event_cmbDepartamentoMouseExited
+
+    private void cmbDepartamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbDepartamentoFocusLost
+       //  controladorPrincipal.listarempleadopornumdepcombobox();
+    }//GEN-LAST:event_cmbDepartamentoFocusLost
+
+    private void cmbDepartamentoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbDepartamentoMouseReleased
+       //  controladorPrincipal.listarempleadopornumdepcombobox();
+    }//GEN-LAST:event_cmbDepartamentoMouseReleased
 
     public JTextField getTxtlocdep() {
         return txtlocdep;

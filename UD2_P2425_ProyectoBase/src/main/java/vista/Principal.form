@@ -103,13 +103,13 @@
                   <Component id="btnModificar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="cmbDepartamento" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="btnaceptar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtnumdep" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="labeldep" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="cmbDepartamento" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -218,6 +218,13 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cmbDepartamentoItemStateChanged"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="cmbDepartamentoFocusLost"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmbDepartamentoMouseClicked"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmbDepartamentoMouseEntered"/>
+        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmbDepartamentoMouseExited"/>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmbDepartamentoMousePressed"/>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmbDepartamentoMouseReleased"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbDepartamentoActionPerformed"/>
       </Events>
       <AuxValues>
@@ -236,6 +243,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Borrar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnModificar">
       <Properties>

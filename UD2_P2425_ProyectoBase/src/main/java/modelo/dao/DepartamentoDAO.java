@@ -138,7 +138,10 @@ public class DepartamentoDAO {
 
     }
 
-    public void insertar(Connection conn, Integer numdep, String nombre, String loc) throws SQLException {
+    public int insertar(Connection conn, Integer numdep, String nombre, String loc) throws SQLException {
+        
+        int registrosAfectados;
+        
         
         String consulta="INSERT INTO departamentos (dept_no, dnombre, loc) VALUES (?, ?, ?);";
         
@@ -151,13 +154,28 @@ public class DepartamentoDAO {
         
         
         
-        sentencia.executeUpdate();
+       registrosAfectados= sentencia.executeUpdate();
         
         
-        
+        return registrosAfectados;
         
         
        }
+
+    public int borrar(Connection conn, Integer numdep) throws SQLException {
+        int registrosAfectados;
+        
+          String consulta="DELETE FROM departamentos WHERE dept_no = ?";
+        
+          PreparedStatement sentencia=conn.prepareStatement(consulta);
+          
+        sentencia.setInt(1, numdep);
+        registrosAfectados=sentencia.executeUpdate();
+        
+        return registrosAfectados;
+        }
+    
+    
 
     
 

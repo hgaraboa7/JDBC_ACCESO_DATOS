@@ -2,12 +2,15 @@ vista\Principal$6.class
 UD2_P2425_ProyectoBase.class
 vista\Principal.class
 vista\Principal$1.class
+vista\Principal$11.class
 controlador\pool\BasicConnectionPool.class
 modelo\dao\EmpleadoDAO.class
 vista\Principal$5.class
+vista\Principal$9.class
 vista\Principal$3.class
 controlador\factory\MySQLDAOFactory.class
 modelo\dao\Dao.class
+vista\Principal$10.class
 vista\Principal$2.class
 modelo\dao\DepartamentoDAO.class
 vista\Principal$8.class
@@ -15,5 +18,6 @@ vista\Principal$4.class
 controlador\factory\DAOFactory.class
 controlador\pool\ConnectionPool.class
 controlador\controladorPrincipal.class
+vista\Principal$12.class
 modelo\vo\Departamento.class
 vista\Principal$7.class

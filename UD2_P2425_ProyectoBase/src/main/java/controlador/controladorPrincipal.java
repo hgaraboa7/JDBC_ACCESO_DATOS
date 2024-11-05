@@ -6,6 +6,7 @@ package controlador;
 
 import controlador.factory.DAOFactory;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -110,6 +111,8 @@ public class controladorPrincipal {
              
             mySQLFactory.releaseConnection(conn);
         } catch(NumberFormatException ex1){
+            
+            //salta este primero antes del de insertar
             JOptionPane.showMessageDialog(null, "entrada de datos incorrecta");
         } catch (Exception ex) {
             Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -228,18 +231,82 @@ public class controladorPrincipal {
         try {
             conn=mySQLFactory.getConnection();
             //insertamos directamente
-           // JOptionPane.showMessageDialog(null,depDAO.insertar());
-            depDAO.insertar(conn, Integer.valueOf(ventana.getTxtnumdep2().getText()),ventana.getTxtnombredep().getText(),ventana.getTxtlocdep().getText());
+            // depDAO.insertar(conn, Integer.valueOf(ventana.getTxtnumdep2().getText()),ventana.getTxtnombredep().getText(),ventana.getTxtlocdep().getText());
             
+           JOptionPane.showMessageDialog(null, depDAO.insertar(conn, Integer.valueOf(ventana.getTxtnumdep2().getText()),
+                     ventana.getTxtnombredep().getText(),ventana.getTxtlocdep().getText())+ " registros afectados");
+         
             conn.commit();
+           
+      } catch (SQLException ex) {
+            try{
+                switch(ex.getErrorCode()){
+                case 1062->
+                JOptionPane.showMessageDialog(null, "El departamento ya existe");
+                default->{
+                
+                }
+                
+                
+            }
+                conn.rollback();
+            }catch (SQLException ex1) {
+                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex1);
+            }
             
+      }catch(NumberFormatException ex1){
+          try{
+              conn.rollback();
+          }catch (SQLException ex) {
+                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          JOptionPane.showMessageDialog(null, "Error en formato de datos");
+          limpiardatos();
+            
+            
+        } catch (Exception ex2) {
+            try{
+                conn.rollback();
+            }catch(SQLException ex){
+                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+        }finally {
+            mySQLFactory.releaseConnection(conn);
+        }
+    }
+
+    private static void limpiardatos() {
+        ventana.getTxtnumdep2().setText("");
+        ventana.getTxtnombredep().setText("");
+        ventana.getTxtlocdep().setText("");
+        
+      }
+
+    public static void borrarsincomprobar() {
+  
+        Connection conn=null;
+         if(ventana.getTxtnumdep2().getText().isEmpty()|| ventana.getTxtnombredep().getText().isEmpty()||ventana.getTxtlocdep().getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "faltan datos");
+            return;
+        }
+        
+        try {
+            conn=mySQLFactory.getConnection();
+            
+             JOptionPane.showMessageDialog(null, depDAO.borrar(conn, Integer.valueOf(ventana.getTxtnumdep2().getText()))+ " registros afectados");
+         
+            conn.commit();
             
         } catch (Exception ex) {
             Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
+             
+         
         
         
+    
+    
+    }
         
-        
-      }
 }
