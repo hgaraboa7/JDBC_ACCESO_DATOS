@@ -55,8 +55,10 @@ public class Principal extends javax.swing.JFrame {
         lbltotalemp = new javax.swing.JLabel();
         cmbDepartamento = new javax.swing.JComboBox<>();
         btninsertar = new javax.swing.JButton();
-        btnBorrar = new javax.swing.JButton();
+        btnBorrarCascada = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
+        btnMostrarDep = new javax.swing.JButton();
+        btnBorrarRestring = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -117,31 +119,9 @@ public class Principal extends javax.swing.JFrame {
         });
 
         cmbDepartamento.setToolTipText("");
-        cmbDepartamento.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbDepartamentoItemStateChanged(evt);
-            }
-        });
-        cmbDepartamento.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cmbDepartamentoFocusLost(evt);
-            }
-        });
         cmbDepartamento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cmbDepartamentoMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                cmbDepartamentoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                cmbDepartamentoMouseExited(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                cmbDepartamentoMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                cmbDepartamentoMouseReleased(evt);
             }
         });
         cmbDepartamento.addActionListener(new java.awt.event.ActionListener() {
@@ -157,14 +137,33 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        btnBorrar.setText("Borrar");
-        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+        btnBorrarCascada.setText("Borrar Cascada");
+        btnBorrarCascada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBorrarActionPerformed(evt);
+                btnBorrarCascadaActionPerformed(evt);
             }
         });
 
         btnModificar.setText("modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnMostrarDep.setText("Mostrar Departamento");
+        btnMostrarDep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarDepActionPerformed(evt);
+            }
+        });
+
+        btnBorrarRestring.setText("Borrar Restring.");
+        btnBorrarRestring.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarRestringActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,22 +171,26 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtnumdep2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(66, 66, 66)
-                        .addComponent(txtnombredep))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(60, 60, 60)
-                        .addComponent(txtlocdep))
-                    .addComponent(jScrollPane1)
-                    .addComponent(cmbDepartamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbltotaldep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addComponent(btnMostrarDep))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtnumdep2))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(66, 66, 66)
+                            .addComponent(txtnombredep))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(60, 60, 60)
+                            .addComponent(txtlocdep))
+                        .addComponent(jScrollPane1)
+                        .addComponent(cmbDepartamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbltotaldep, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -204,8 +207,10 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btninsertar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnBorrarCascada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btninsertar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBorrarRestring)))
                 .addContainerGap(164, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -222,7 +227,8 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtnombredep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnBorrar)))
+                        .addComponent(btnBorrarCascada)
+                        .addComponent(btnBorrarRestring)))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -240,7 +246,9 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22)
-                        .addComponent(lbltotaldep, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbltotaldep, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnMostrarDep))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(lbltotalemp, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,27 +305,27 @@ public class Principal extends javax.swing.JFrame {
 
     private void btninsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninsertarActionPerformed
         
-        controladorPrincipal.insertarsincomprobar();
+        controladorPrincipal.insertarcomprobando();
+        
+       // controladorPrincipal.insertarsincomprobar();
         controladorPrincipal.listardepartamentoscombobox();
     
         
         
     }//GEN-LAST:event_btninsertarActionPerformed
 
-    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+    private void btnBorrarCascadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarCascadaActionPerformed
        
-        controladorPrincipal.borrarsincomprobar();
+        //controladorPrincipal.borrarsincomprobar();
+        
+        controladorPrincipal.borrarCascada();
+        
+        
+        
         controladorPrincipal.listardepartamentoscombobox();
         
-    }//GEN-LAST:event_btnBorrarActionPerformed
-
-    private void cmbDepartamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDepartamentoItemStateChanged
-      
-        //solucionar error despues de realizar insercion, borrado modif, al actualizar el combo otras vez
-        //da java.lang.NullPointerException: 
         
-        //controladorPrincipal.listarempleadopornumdepcombobox();
-    }//GEN-LAST:event_cmbDepartamentoItemStateChanged
+    }//GEN-LAST:event_btnBorrarCascadaActionPerformed
 
     private void cmbDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDepartamentoActionPerformed
       //solucionar error despues de realizar insercion, borrado modif, al actualizar el combo otras vez
@@ -328,28 +336,32 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbDepartamentoActionPerformed
 
     private void cmbDepartamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbDepartamentoMouseClicked
-     //  controladorPrincipal.listarempleadopornumdepcombobox();
+       
     }//GEN-LAST:event_cmbDepartamentoMouseClicked
 
-    private void cmbDepartamentoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbDepartamentoMouseEntered
-      // controladorPrincipal.listarempleadopornumdepcombobox();
-    }//GEN-LAST:event_cmbDepartamentoMouseEntered
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        
+         controladorPrincipal.modificarcomprobando();
+        
+        controladorPrincipal.listardepartamentoscombobox();
+        
+        
+    }//GEN-LAST:event_btnModificarActionPerformed
 
-    private void cmbDepartamentoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbDepartamentoMousePressed
-     //   controladorPrincipal.listarempleadopornumdepcombobox();
-    }//GEN-LAST:event_cmbDepartamentoMousePressed
+    private void btnMostrarDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarDepActionPerformed
+      
+     //   controladorPrincipal.listardepartamentopornum();
+      //  controladorPrincipal.listarempleadopornumdepcombobox();
+        
+    }//GEN-LAST:event_btnMostrarDepActionPerformed
 
-    private void cmbDepartamentoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbDepartamentoMouseExited
-       // controladorPrincipal.listarempleadopornumdepcombobox();
-    }//GEN-LAST:event_cmbDepartamentoMouseExited
-
-    private void cmbDepartamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmbDepartamentoFocusLost
-       //  controladorPrincipal.listarempleadopornumdepcombobox();
-    }//GEN-LAST:event_cmbDepartamentoFocusLost
-
-    private void cmbDepartamentoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbDepartamentoMouseReleased
-       //  controladorPrincipal.listarempleadopornumdepcombobox();
-    }//GEN-LAST:event_cmbDepartamentoMouseReleased
+    private void btnBorrarRestringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarRestringActionPerformed
+       controladorPrincipal.borrarRestringido();
+       
+       controladorPrincipal.listardepartamentoscombobox();
+       
+       
+    }//GEN-LAST:event_btnBorrarRestringActionPerformed
 
     public JTextField getTxtlocdep() {
         return txtlocdep;
@@ -436,8 +448,10 @@ public class Principal extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnBorrarCascada;
+    private javax.swing.JButton btnBorrarRestring;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnMostrarDep;
     private javax.swing.JButton btnaceptar;
     private javax.swing.JButton btninsertar;
     private javax.swing.JComboBox<Departamento> cmbDepartamento;

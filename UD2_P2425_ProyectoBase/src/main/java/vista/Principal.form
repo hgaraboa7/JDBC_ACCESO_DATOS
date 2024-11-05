@@ -29,25 +29,31 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txtnumdep2" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="btnMostrarDep" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                      <Component id="txtnombredep" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="txtnumdep2" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                          <Component id="txtnombredep" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                          <Component id="txtlocdep" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="cmbDepartamento" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lbltotaldep" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                      <Component id="txtlocdep" max="32767" attributes="0"/>
-                  </Group>
-                  <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="cmbDepartamento" alignment="0" max="32767" attributes="0"/>
-                  <Component id="lbltotaldep" alignment="0" max="32767" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -68,9 +74,11 @@
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="btnModificar" alignment="1" max="32767" attributes="0"/>
-                          <Component id="btnBorrar" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btnBorrarCascada" alignment="1" max="32767" attributes="0"/>
                           <Component id="btninsertar" alignment="1" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnBorrarRestring" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="164" max="32767" attributes="0"/>
@@ -93,7 +101,8 @@
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtnombredep" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnBorrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBorrarCascada" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBorrarRestring" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
@@ -117,6 +126,8 @@
                       <Component id="jScrollPane1" min="-2" pref="120" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Component id="lbltotaldep" min="-2" pref="17" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnMostrarDep" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane2" min="-2" pref="233" max="-2" attributes="0"/>
               </Group>
@@ -218,13 +229,7 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
-        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cmbDepartamentoItemStateChanged"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="cmbDepartamentoFocusLost"/>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmbDepartamentoMouseClicked"/>
-        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmbDepartamentoMouseEntered"/>
-        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmbDepartamentoMouseExited"/>
-        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmbDepartamentoMousePressed"/>
-        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cmbDepartamentoMouseReleased"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbDepartamentoActionPerformed"/>
       </Events>
       <AuxValues>
@@ -239,18 +244,37 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btninsertarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnBorrar">
+    <Component class="javax.swing.JButton" name="btnBorrarCascada">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Borrar"/>
+        <Property name="text" type="java.lang.String" value="Borrar Cascada"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarCascadaActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnModificar">
       <Properties>
         <Property name="text" type="java.lang.String" value="modificar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnMostrarDep">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Mostrar Departamento"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMostrarDepActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnBorrarRestring">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Borrar Restring."/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarRestringActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
