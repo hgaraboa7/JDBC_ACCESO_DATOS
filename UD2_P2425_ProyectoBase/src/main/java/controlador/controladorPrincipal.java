@@ -337,7 +337,7 @@ public class controladorPrincipal {
             } catch (SQLException ex) {
                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(null, "Error en formato de datos al borrar");
+            JOptionPane.showMessageDialog(null, "Error en formato de datos al insertar");
             limpiardatos();
 
         } catch (Exception ex2) {
@@ -456,7 +456,7 @@ public class controladorPrincipal {
             } catch (SQLException ex) {
                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(null, "Error en formato de datos al insertar");
+            JOptionPane.showMessageDialog(null, "Error en formato de datos al borrar");
             limpiardatos();
 
         } catch (Exception ex2) {
@@ -515,7 +515,7 @@ public class controladorPrincipal {
             } catch (SQLException ex) {
                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(null, "Error en formato de datos al insertar");
+            JOptionPane.showMessageDialog(null, "Error en formato de datos al borrar");
             limpiardatos();
 
         } catch (Exception ex2) {
@@ -541,18 +541,24 @@ public class controladorPrincipal {
         
         String tipo="Insertar";
 
-        if (ventana.getTxtnumdep2().getText().isEmpty() || ventana.getTxtnombredep().getText().isEmpty() || ventana.getTxtlocdep().getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "faltan datos");
-            return;
-        }
+        
 
         try {
             conn = mySQLFactory.getConnection();
+            //si no reseta el contador
+            conn.setAutoCommit(false);
 
             //se hace si o si
             depDAO.contarOperativa(conn, tipo);
 
             pc = conn.setSavepoint();
+            
+             if (ventana.getTxtnumdep2().getText().isEmpty() || ventana.getTxtnombredep().getText().isEmpty() || ventana.getTxtlocdep().getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "faltan datos");
+            return;
+        }
+            
+           
 
             Departamento d = depDAO.buscardepartamento(conn, Integer.valueOf(ventana.getTxtnumdep2().getText()));
 
@@ -583,7 +589,7 @@ public class controladorPrincipal {
             } catch (SQLException ex) {
                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(null, "Error en formato de datos al borrar");
+            JOptionPane.showMessageDialog(null, "Error en formato de datos al insertar");
             limpiardatos();
 
         } catch (Exception ex2) {
@@ -596,6 +602,7 @@ public class controladorPrincipal {
         } finally {
             try {
                 conn.commit();
+                conn.setAutoCommit(true);
                 
                 
             } catch (SQLException ex) {

@@ -286,7 +286,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void txtnumdep2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtnumdep2FocusLost
         
-        controladorPrincipal.mostrardatos();
+      //  controladorPrincipal.mostrardatos();
         
         
     }//GEN-LAST:event_txtnumdep2FocusLost
