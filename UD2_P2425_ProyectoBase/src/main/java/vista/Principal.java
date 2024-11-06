@@ -305,10 +305,17 @@ public class Principal extends javax.swing.JFrame {
 
     private void btninsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninsertarActionPerformed
         
-        controladorPrincipal.insertarcomprobando();
+        
+        controladorPrincipal.insertarcomprobandoSaveoint();
+        
+       // controladorPrincipal.insertarcomprobando();
         
        // controladorPrincipal.insertarsincomprobar();
         controladorPrincipal.listardepartamentoscombobox();
+        
+        
+        
+        
     
         
         
@@ -323,6 +330,9 @@ public class Principal extends javax.swing.JFrame {
         
         
         controladorPrincipal.listardepartamentoscombobox();
+        
+        
+       
         
         
     }//GEN-LAST:event_btnBorrarCascadaActionPerformed
@@ -345,13 +355,15 @@ public class Principal extends javax.swing.JFrame {
         
         controladorPrincipal.listardepartamentoscombobox();
         
+       
+        
         
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnMostrarDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarDepActionPerformed
       
-     //   controladorPrincipal.listardepartamentopornum();
-      //  controladorPrincipal.listarempleadopornumdepcombobox();
+       // controladorPrincipal.listardepartamentopornum();
+     //   controladorPrincipal.listarempleadopornumdepcombobox();
         
     }//GEN-LAST:event_btnMostrarDepActionPerformed
 

@@ -7,6 +7,7 @@ package controlador;
 import controlador.factory.DAOFactory;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -176,8 +177,11 @@ public class controladorPrincipal {
             Connection conn;
             conn = mySQLFactory.getConnection();
             //combobox
+            
+            if(ventana.getCmbDepartamento().getSelectedItem()!=null){
+            
             empDAO.listarlosdatospornumdep(conn, ventana.getCmbDepartamento().getItemAt(ventana.getCmbDepartamento().getSelectedIndex()).getDept_no(), ventana.getTxtAreaEmp(), ventana.getLbltotalemp());
-
+            }
             mySQLFactory.releaseConnection(conn);
         } catch (Exception ex) {
             Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -414,9 +418,8 @@ public class controladorPrincipal {
             JOptionPane.showMessageDialog(null, "no existe el departamento");
             return;
         }
-            //comprobar dep         
-        
-        
+        //comprobar dep         
+
         try {
             conn = mySQLFactory.getConnection();
 
@@ -432,14 +435,14 @@ public class controladorPrincipal {
 
         } catch (SQLException ex) {
             try {
-                
-                switch(ex.getErrorCode()){
-                    case 1451->
-                     JOptionPane.showMessageDialog(null, " El departamento tiene empleados y no ha podido borarase");
+
+                switch (ex.getErrorCode()) {
+                    case 1451 ->
+                        JOptionPane.showMessageDialog(null, " El departamento tiene empleados y no ha podido borarase");
                     default -> {
 
-                    }     
-                
+                    }
+
                 }
                 conn.rollback();
 
@@ -480,28 +483,26 @@ public class controladorPrincipal {
         try {
             conn = mySQLFactory.getConnection();
 
-           // if ((empDAO.contarEmp(conn, Integer.valueOf(ventana.getTxtnumdep2().getText()))) == 0) {
+            // if ((empDAO.contarEmp(conn, Integer.valueOf(ventana.getTxtnumdep2().getText()))) == 0) {
+            JOptionPane.showMessageDialog(null, depDAO.borrar(conn, Integer.valueOf(ventana.getTxtnumdep2().getText())) + " registros afectados");
 
-                JOptionPane.showMessageDialog(null, depDAO.borrar(conn, Integer.valueOf(ventana.getTxtnumdep2().getText())) + " registros afectados");
+            conn.commit();
 
-                conn.commit();
-
-           // } else {
+            // } else {
             //    JOptionPane.showMessageDialog(null, "El Departamento tiene empleados y no se puede borrar");
-
-           // }
+            // }
             limpiardatos();
 
         } catch (SQLException ex) {
             try {
-                
-                switch(ex.getErrorCode()){
-                    case 1451->
-                     JOptionPane.showMessageDialog(null, " El departamento tiene empleados y no ha podido borarase");
+
+                switch (ex.getErrorCode()) {
+                    case 1451 ->
+                        JOptionPane.showMessageDialog(null, " El departamento tiene empleados y no ha podido borarase");
                     default -> {
 
-                    }     
-                
+                    }
+
                 }
                 conn.rollback();
             } catch (SQLException ex1) {
@@ -529,4 +530,79 @@ public class controladorPrincipal {
         }
 
     }
+
+    public static void insertarcomprobandoSaveoint() {
+
+        //cambiar depdao a operativadao
+        
+        Connection conn = null;
+
+        Savepoint pc = null;
+        
+        String tipo="Insertar";
+
+        if (ventana.getTxtnumdep2().getText().isEmpty() || ventana.getTxtnombredep().getText().isEmpty() || ventana.getTxtlocdep().getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "faltan datos");
+            return;
+        }
+
+        try {
+            conn = mySQLFactory.getConnection();
+
+            //se hace si o si
+            depDAO.contarOperativa(conn, tipo);
+
+            pc = conn.setSavepoint();
+
+            Departamento d = depDAO.buscardepartamento(conn, Integer.valueOf(ventana.getTxtnumdep2().getText()));
+
+            if (d != null) {
+
+                JOptionPane.showMessageDialog(null, "el departamento ya existe.");
+                return;
+
+            } else {
+                JOptionPane.showMessageDialog(null, depDAO.insertar(conn,
+                        Integer.valueOf(ventana.getTxtnumdep2().getText()),
+                        ventana.getTxtnombredep().getText(), ventana.getTxtlocdep().getText()) + " registros afectados");
+
+            }
+            
+
+        } catch (SQLException ex) {
+            try {
+                conn.rollback(pc);
+
+            } catch (SQLException ex1) {
+                Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+
+        } catch (NumberFormatException ex1) {
+            try {
+                conn.rollback(pc);
+            } catch (SQLException ex) {
+                Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            JOptionPane.showMessageDialog(null, "Error en formato de datos al borrar");
+            limpiardatos();
+
+        } catch (Exception ex2) {
+            try {
+                conn.rollback(pc);
+            } catch (SQLException ex) {
+                Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } finally {
+            try {
+                conn.commit();
+                
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            mySQLFactory.releaseConnection(conn);
+        }
+    }
+
 }

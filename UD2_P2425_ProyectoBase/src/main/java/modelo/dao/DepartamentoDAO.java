@@ -181,4 +181,36 @@ public class DepartamentoDAO {
 
     }
 
+    public void contarOperativa(Connection conn, String tipo) throws SQLException {
+        
+        //cambiar de DepartamentoDAO a OperativaDAO
+        
+        int cantidad;
+         
+        String consulta="SELECT cantidad FROM Operativas WHERE Tipo LIKE '?'";
+        
+        String consulta2="UPDATE operativas SET Cantidad=? WHERE Tipo LIKE '?'";
+     
+        PreparedStatement sentencia = conn.prepareStatement(consulta);
+        
+        
+        
+        //peta aqui
+        sentencia.setString(1, tipo);
+
+        ResultSet rs = sentencia.executeQuery();
+        
+        
+       cantidad= rs.getInt(1) +1;
+        
+        PreparedStatement sentencia2 = conn.prepareStatement(consulta2);
+        
+        sentencia2.setInt(1, cantidad);
+        sentencia2.setString(2, tipo);
+
+        sentencia2.executeUpdate();
+        
+        
+   }
+
 }
