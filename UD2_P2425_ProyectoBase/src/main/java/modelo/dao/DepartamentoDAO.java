@@ -181,61 +181,9 @@ public class DepartamentoDAO {
 
     }
 
-    public void contarOperativa(Connection conn, String tipo) throws SQLException {
-        
-        //cambiar de DepartamentoDAO a OperativaDAO
-//        
-//        int cantidad;
-//         
-//        String consulta="SELECT cantidad FROM Operativas WHERE Tipo LIKE ?";
-//        
-//        String consulta2="UPDATE operativas SET Cantidad=? WHERE Tipo LIKE ?";
-//     
-//        PreparedStatement sentencia = conn.prepareStatement(consulta);
-//        
-//        
-//        
-//        //peta aqui
-//        sentencia.setString(1, tipo);
-//
-//        ResultSet rs = sentencia.executeQuery();
-//        
-//        
-//       cantidad= rs.getInt(1) +1;
-//        
-//        PreparedStatement sentencia2 = conn.prepareStatement(consulta2);
-//        
-//        sentencia2.setInt(1, cantidad);
-//        sentencia2.setString(2, tipo);
-//
-//        sentencia2.executeUpdate();
-//        
+    
 
-int cantidad;
-
-    String consulta = "SELECT cantidad FROM Operativas WHERE Tipo LIKE ?";
-    String consulta2 = "UPDATE operativas SET Cantidad = ? WHERE Tipo LIKE ?";
-
-    try (PreparedStatement sentencia = conn.prepareStatement(consulta);
-         PreparedStatement sentencia2 = conn.prepareStatement(consulta2)) {
-
-        
-        //al introducir un dato incorrecto como nºdep peta y lo reinicia a 0 o valor anterior de transaccion completada
-        // si no se pone setautomit false
-        sentencia.setString(1, tipo);
-        ResultSet rs = sentencia.executeQuery();
-
-        if (rs.next()) {
-            cantidad = rs.getInt("cantidad") + 1; 
-        } else {
-            cantidad = rs.getInt("cantidad"); 
-        }
-
-        sentencia2.setInt(1, cantidad);
-        sentencia2.setString(2, tipo);
-        sentencia2.executeUpdate();
-    }
-        
-   }
+   
+      
 
 }

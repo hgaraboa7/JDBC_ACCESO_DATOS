@@ -13,7 +13,9 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import modelo.dao.DepartamentoDAO;
+import modelo.dao.HistoricoDAO;
 import modelo.dao.EmpleadoDAO;
+import modelo.dao.OperativaDAO;
 import modelo.vo.Departamento;
 import vista.Principal;
 
@@ -28,6 +30,9 @@ public class controladorPrincipal {
 
     public static DepartamentoDAO depDAO;
     public static EmpleadoDAO empDAO;
+    public static HistoricoDAO histDAO;
+
+    public static OperativaDAO opDAO;
 
     static DefaultComboBoxModel modelocombo = new DefaultComboBoxModel();
 
@@ -46,6 +51,10 @@ public class controladorPrincipal {
         depDAO = mySQLFactory.getDepartamentoDAO();
 
         empDAO = mySQLFactory.getEmpleadoDAO();
+
+        histDAO = mySQLFactory.getHistoricoDAO();
+
+        opDAO = mySQLFactory.getOperativaDAO();
     }
 
     public static void cerrarFactory() {
@@ -135,6 +144,7 @@ public class controladorPrincipal {
 
     public static void mostrardatos() {
 
+        //usar este metodo provoca que el contador de operativas retroceda al introducir mal los datos
         if (ventana.getTxtnumdep2().getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "faltan datos");
             return;
@@ -148,7 +158,12 @@ public class controladorPrincipal {
             depDAO.mostrardosdatos(conn, Integer.parseInt(ventana.getTxtnumdep2().getText().trim()), ventana.getTxtlocdep(), ventana.getTxtnombredep());
 
             mySQLFactory.releaseConnection(conn);
+        } catch (SQLException ex1) {
+            Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex1);
+
         } catch (NumberFormatException ex1) {
+
+            //al dar esta ex
             JOptionPane.showMessageDialog(null, "entrada de datos incorrecta");
         } catch (Exception ex) {
             Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -177,10 +192,10 @@ public class controladorPrincipal {
             Connection conn;
             conn = mySQLFactory.getConnection();
             //combobox
-            
-            if(ventana.getCmbDepartamento().getSelectedItem()!=null){
-            
-            empDAO.listarlosdatospornumdep(conn, ventana.getCmbDepartamento().getItemAt(ventana.getCmbDepartamento().getSelectedIndex()).getDept_no(), ventana.getTxtAreaEmp(), ventana.getLbltotalemp());
+
+            if (ventana.getCmbDepartamento().getSelectedItem() != null) {
+
+                empDAO.listarlosdatospornumdep(conn, ventana.getCmbDepartamento().getItemAt(ventana.getCmbDepartamento().getSelectedIndex()).getDept_no(), ventana.getTxtAreaEmp(), ventana.getLbltotalemp());
             }
             mySQLFactory.releaseConnection(conn);
         } catch (Exception ex) {
@@ -356,13 +371,25 @@ public class controladorPrincipal {
 
         Connection conn = null;
 
-        if (ventana.getTxtnumdep2().getText().isEmpty() || ventana.getTxtnombredep().getText().isEmpty() || ventana.getTxtlocdep().getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "faltan datos");
-            return;
-        }
+        Savepoint pc = null;
+
+        String tipo = "Modificar";
 
         try {
             conn = mySQLFactory.getConnection();
+
+            //si no reseta el contador
+            conn.setAutoCommit(false);
+
+            //se hace si o si
+            opDAO.contarOperativa(conn, tipo);
+
+            pc = conn.setSavepoint();
+
+            if (ventana.getTxtnumdep2().getText().isEmpty() || ventana.getTxtnombredep().getText().isEmpty() || ventana.getTxtlocdep().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "no existe el departamento");
+                return;
+            }
             //insertamos directamente
             // depDAO.insertar(conn, Integer.valueOf(ventana.getTxtnumdep2().getText()),ventana.getTxtnombredep().getText(),ventana.getTxtlocdep().getText());
 
@@ -379,11 +406,10 @@ public class controladorPrincipal {
                         ventana.getTxtnombredep().getText(), ventana.getTxtlocdep().getText()) + " registros afectados");
 
             }
-            conn.commit();
 
         } catch (SQLException ex) {
             try {
-                conn.rollback();
+                conn.rollback(pc);
 
             } catch (SQLException ex1) {
                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex1);
@@ -391,7 +417,7 @@ public class controladorPrincipal {
 
         } catch (NumberFormatException ex1) {
             try {
-                conn.rollback();
+                conn.rollback(pc);
             } catch (SQLException ex) {
                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -400,12 +426,20 @@ public class controladorPrincipal {
 
         } catch (Exception ex2) {
             try {
-                conn.rollback();
+                conn.rollback(pc);
             } catch (SQLException ex) {
                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } finally {
+
+            try {
+                conn.commit();
+                conn.setAutoCommit(true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
             mySQLFactory.releaseConnection(conn);
         }
 
@@ -414,14 +448,27 @@ public class controladorPrincipal {
     public static void borrarCascada() {
 
         Connection conn = null;
-        if (ventana.getTxtnumdep2().getText().isEmpty() || ventana.getTxtnombredep().getText().isEmpty() || ventana.getTxtlocdep().getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "no existe el departamento");
-            return;
-        }
+
         //comprobar dep         
+        Savepoint pc = null;
+
+        String tipo = "Borrar";
 
         try {
             conn = mySQLFactory.getConnection();
+
+            //si no reseta el contador
+            conn.setAutoCommit(false);
+
+            //se hace si o si
+            opDAO.contarOperativa(conn, tipo);
+
+            pc = conn.setSavepoint();
+
+            if (ventana.getTxtnumdep2().getText().isEmpty() || ventana.getTxtnombredep().getText().isEmpty() || ventana.getTxtlocdep().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "no existe el departamento");
+                return;
+            }
 
             if ((empDAO.contarEmp(conn, Integer.valueOf(ventana.getTxtnumdep2().getText()))) != 0) {
 
@@ -430,7 +477,6 @@ public class controladorPrincipal {
             }
             JOptionPane.showMessageDialog(null, depDAO.borrar(conn, Integer.valueOf(ventana.getTxtnumdep2().getText())) + " registros afectados (departamentos)");
 
-            conn.commit();
             limpiardatos();
 
         } catch (SQLException ex) {
@@ -444,7 +490,7 @@ public class controladorPrincipal {
                     }
 
                 }
-                conn.rollback();
+                conn.rollback(pc);
 
             } catch (SQLException ex1) {
                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex1);
@@ -452,7 +498,7 @@ public class controladorPrincipal {
 
         } catch (NumberFormatException ex1) {
             try {
-                conn.rollback();
+                conn.rollback(pc);
             } catch (SQLException ex) {
                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -461,12 +507,20 @@ public class controladorPrincipal {
 
         } catch (Exception ex2) {
             try {
-                conn.rollback();
+                conn.rollback(pc);
             } catch (SQLException ex) {
                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } finally {
+
+            try {
+                conn.commit();
+                conn.setAutoCommit(true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
             mySQLFactory.releaseConnection(conn);
         }
 
@@ -475,22 +529,28 @@ public class controladorPrincipal {
     public static void borrarRestringido() {
 
         Connection conn = null;
-        if (ventana.getTxtnumdep2().getText().isEmpty() || ventana.getTxtnombredep().getText().isEmpty() || ventana.getTxtlocdep().getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "no existe el departamento");
-            return;
-        }
+
+        Savepoint pc = null;
+
+        String tipo = "Borrar";
 
         try {
             conn = mySQLFactory.getConnection();
 
-            // if ((empDAO.contarEmp(conn, Integer.valueOf(ventana.getTxtnumdep2().getText()))) == 0) {
+            //si no reseta el contador
+            // conn.setAutoCommit(false);
+            //se hace si o si
+            opDAO.contarOperativa(conn, tipo);
+
+            pc = conn.setSavepoint();
+
+            if (ventana.getTxtnumdep2().getText().isEmpty() || ventana.getTxtnombredep().getText().isEmpty() || ventana.getTxtlocdep().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "no existe el departamento");
+                return;
+            }
+
             JOptionPane.showMessageDialog(null, depDAO.borrar(conn, Integer.valueOf(ventana.getTxtnumdep2().getText())) + " registros afectados");
 
-            conn.commit();
-
-            // } else {
-            //    JOptionPane.showMessageDialog(null, "El Departamento tiene empleados y no se puede borrar");
-            // }
             limpiardatos();
 
         } catch (SQLException ex) {
@@ -504,14 +564,14 @@ public class controladorPrincipal {
                     }
 
                 }
-                conn.rollback();
+                conn.rollback(pc);
             } catch (SQLException ex1) {
                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex1);
             }
 
         } catch (NumberFormatException ex1) {
             try {
-                conn.rollback();
+                conn.rollback(pc);
             } catch (SQLException ex) {
                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -520,12 +580,20 @@ public class controladorPrincipal {
 
         } catch (Exception ex2) {
             try {
-                conn.rollback();
+                conn.rollback(pc);
             } catch (SQLException ex) {
                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } finally {
+
+            try {
+                conn.commit();
+                //     conn.setAutoCommit(true);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
             mySQLFactory.releaseConnection(conn);
         }
 
@@ -534,14 +602,11 @@ public class controladorPrincipal {
     public static void insertarcomprobandoSaveoint() {
 
         //cambiar depdao a operativadao
-        
         Connection conn = null;
 
         Savepoint pc = null;
-        
-        String tipo="Insertar";
 
-        
+        String tipo = "Insertar";
 
         try {
             conn = mySQLFactory.getConnection();
@@ -549,16 +614,14 @@ public class controladorPrincipal {
             conn.setAutoCommit(false);
 
             //se hace si o si
-            depDAO.contarOperativa(conn, tipo);
+            opDAO.contarOperativa(conn, tipo);
 
             pc = conn.setSavepoint();
-            
-             if (ventana.getTxtnumdep2().getText().isEmpty() || ventana.getTxtnombredep().getText().isEmpty() || ventana.getTxtlocdep().getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "faltan datos");
-            return;
-        }
-            
-           
+
+            if (ventana.getTxtnumdep2().getText().isEmpty() || ventana.getTxtnombredep().getText().isEmpty() || ventana.getTxtlocdep().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "faltan datos");
+                return;
+            }
 
             Departamento d = depDAO.buscardepartamento(conn, Integer.valueOf(ventana.getTxtnumdep2().getText()));
 
@@ -573,7 +636,6 @@ public class controladorPrincipal {
                         ventana.getTxtnombredep().getText(), ventana.getTxtlocdep().getText()) + " registros afectados");
 
             }
-            
 
         } catch (SQLException ex) {
             try {
@@ -603,13 +665,65 @@ public class controladorPrincipal {
             try {
                 conn.commit();
                 conn.setAutoCommit(true);
-                
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
             mySQLFactory.releaseConnection(conn);
         }
+    }
+
+    public static void guardarHistorico() {
+
+        Connection conn = null;
+
+        if (ventana.getTxtnumdep2().getText().isEmpty() || ventana.getTxtnombredep().getText().isEmpty() || ventana.getTxtlocdep().getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "faltan datos");
+            return;
+        }
+
+        try {
+            conn = mySQLFactory.getConnection();
+            // insertamos directamente
+            histDAO.insertarHistorico(conn, Integer.valueOf(ventana.getTxtnumdep2().getText()));
+
+            conn.commit();
+
+        } catch (SQLException ex) {
+            try {
+                switch (ex.getErrorCode()) {
+                    case 1062 ->
+                        JOptionPane.showMessageDialog(null, "El departamento ya existe");
+                    default -> {
+
+                    }
+
+                }
+                conn.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+
+        } catch (NumberFormatException ex1) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            JOptionPane.showMessageDialog(null, "Error en formato de datos");
+            limpiardatos();
+
+        } catch (Exception ex2) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                Logger.getLogger(controladorPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } finally {
+            mySQLFactory.releaseConnection(conn);
+        }
+
     }
 
 }

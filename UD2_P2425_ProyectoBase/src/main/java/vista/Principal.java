@@ -286,6 +286,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void txtnumdep2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtnumdep2FocusLost
         
+        //comentado porque resulta molesto
       //  controladorPrincipal.mostrardatos();
         
         
@@ -325,8 +326,9 @@ public class Principal extends javax.swing.JFrame {
        
         //controladorPrincipal.borrarsincomprobar();
         
-        controladorPrincipal.borrarCascada();
+        controladorPrincipal.guardarHistorico();
         
+        controladorPrincipal.borrarCascada();
         
         
         controladorPrincipal.listardepartamentoscombobox();
@@ -362,13 +364,17 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnMostrarDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarDepActionPerformed
       
-       // controladorPrincipal.listardepartamentopornum();
-     //   controladorPrincipal.listarempleadopornumdepcombobox();
+        controladorPrincipal.mostrardatos();
+        controladorPrincipal.listardepartamentopornum();
+       controladorPrincipal.listarempleadopornumdepcombobox();
         
     }//GEN-LAST:event_btnMostrarDepActionPerformed
 
     private void btnBorrarRestringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarRestringActionPerformed
-       controladorPrincipal.borrarRestringido();
+       
+        controladorPrincipal.guardarHistorico();
+        
+        controladorPrincipal.borrarRestringido();
        
        controladorPrincipal.listardepartamentoscombobox();
        

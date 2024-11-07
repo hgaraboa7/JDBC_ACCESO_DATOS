@@ -3,6 +3,8 @@ package controlador.factory;
 import java.sql.Connection;
 import modelo.dao.DepartamentoDAO;
 import modelo.dao.EmpleadoDAO;
+import modelo.dao.HistoricoDAO;
+import modelo.dao.OperativaDAO;
 
 
 public abstract class DAOFactory {
@@ -36,5 +38,9 @@ public abstract class DAOFactory {
         public abstract DepartamentoDAO getDepartamentoDAO();
         
         public abstract EmpleadoDAO getEmpleadoDAO();
+        
+        public abstract HistoricoDAO getHistoricoDAO();
+        
+        public abstract OperativaDAO getOperativaDAO();
         
 }
