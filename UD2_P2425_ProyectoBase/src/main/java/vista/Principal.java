@@ -26,8 +26,6 @@ public class Principal extends javax.swing.JFrame {
         //que lleve el focus
         jLabel1.requestFocusInWindow();
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -260,36 +258,34 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        
+
         //cerrar factory al cerrar ventana
         controladorPrincipal.cerrarFactory();
-        
+
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-       
-      //  controladorPrincipal.listardepartamentos();
-      //  controladorPrincipal.listarempleados();
-      
-      controladorPrincipal.listardepartamentoscombobox();
-        
-        
+
+        //  controladorPrincipal.listardepartamentos();
+        //  controladorPrincipal.listarempleados();
+        controladorPrincipal.listardepartamentoscombobox();
+
+
     }//GEN-LAST:event_formWindowOpened
 
     private void btnaceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaceptarActionPerformed
-      
+
         controladorPrincipal.listardepartamentopornum();
-        
+
         controladorPrincipal.listarempleadopornumdep();
-        
+
     }//GEN-LAST:event_btnaceptarActionPerformed
 
     private void txtnumdep2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtnumdep2FocusLost
-        
+
         //comentado porque resulta molesto
-      //  controladorPrincipal.mostrardatos();
-        
-        
+        // controladorPrincipal.mostrardatos();
+
     }//GEN-LAST:event_txtnumdep2FocusLost
 
     private void txtnumdep2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnumdep2ActionPerformed
@@ -305,80 +301,63 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtlocdepActionPerformed
 
     private void btninsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninsertarActionPerformed
-        
-        
-        controladorPrincipal.insertarcomprobandoSaveoint();
-        
-       // controladorPrincipal.insertarcomprobando();
-        
-       // controladorPrincipal.insertarsincomprobar();
+
+        controladorPrincipal.insertarcomprobandoSavepoint();
+
+        // controladorPrincipal.insertarcomprobando();
+        // controladorPrincipal.insertarsincomprobar();
         controladorPrincipal.listardepartamentoscombobox();
-        
-        
-        
-        
-    
-        
-        
+
+
     }//GEN-LAST:event_btninsertarActionPerformed
 
     private void btnBorrarCascadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarCascadaActionPerformed
-       
+
         //controladorPrincipal.borrarsincomprobar();
-        
         controladorPrincipal.guardarHistorico();
-        
+
         controladorPrincipal.borrarCascada();
-        
-        
+
         controladorPrincipal.listardepartamentoscombobox();
-        
-        
-       
-        
-        
+
+
     }//GEN-LAST:event_btnBorrarCascadaActionPerformed
 
     private void cmbDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbDepartamentoActionPerformed
-      //solucionar error despues de realizar insercion, borrado modif, al actualizar el combo otras vez
-        //da java.lang.NullPointerException: 
-        
-        
+
         controladorPrincipal.listarempleadopornumdepcombobox();
     }//GEN-LAST:event_cmbDepartamentoActionPerformed
 
     private void cmbDepartamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbDepartamentoMouseClicked
-       
+
     }//GEN-LAST:event_cmbDepartamentoMouseClicked
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        
-         controladorPrincipal.modificarcomprobando();
-        
+
+        controladorPrincipal.modificarcomprobando();
+
         controladorPrincipal.listardepartamentoscombobox();
-        
-       
-        
-        
+
+
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnMostrarDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarDepActionPerformed
-      
+
         controladorPrincipal.mostrardatos();
         controladorPrincipal.listardepartamentopornum();
-       controladorPrincipal.listarempleadopornumdepcombobox();
-        
+        controladorPrincipal.listarempleadopornumdepcombobox();
+
     }//GEN-LAST:event_btnMostrarDepActionPerformed
 
     private void btnBorrarRestringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarRestringActionPerformed
-       
+
         controladorPrincipal.guardarHistorico();
-        
+
         controladorPrincipal.borrarRestringido();
-       
-       controladorPrincipal.listardepartamentoscombobox();
-       
-       
+
+        controladorPrincipal.listardepartamentoscombobox();
+
+
     }//GEN-LAST:event_btnBorrarRestringActionPerformed
 
     public JTextField getTxtlocdep() {
@@ -460,10 +439,7 @@ public class Principal extends javax.swing.JFrame {
     public void setCmbDepartamento(JComboBox<Departamento> cmbDepartamento) {
         this.cmbDepartamento = cmbDepartamento;
     }
-    
-    
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrarCascada;

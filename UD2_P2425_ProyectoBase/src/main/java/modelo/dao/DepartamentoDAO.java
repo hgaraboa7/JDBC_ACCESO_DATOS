@@ -135,14 +135,14 @@ public class DepartamentoDAO {
     }
 
     public int borrar(Connection conn, Integer numdep) throws SQLException {
-      //  int registrosAfectados;
+        //  int registrosAfectados;
 
         String consulta = "DELETE FROM departamentos WHERE dept_no = ?";
 
         PreparedStatement sentencia = conn.prepareStatement(consulta);
 
         sentencia.setInt(1, numdep);
-       // registrosAfectados = sentencia.executeUpdate();
+        // registrosAfectados = sentencia.executeUpdate();
 
         return sentencia.executeUpdate();
     }
@@ -181,9 +181,18 @@ public class DepartamentoDAO {
 
     }
 
-    
+    public int recuperarHistorico(Connection conn, Departamento d) throws SQLException {
 
-   
-      
+        String consulta = "insert into departamentos VALUES (?, ?, ?)";
+
+        PreparedStatement sentencia = conn.prepareStatement(consulta);
+
+        sentencia.setInt(1, d.getDept_no());
+        sentencia.setString(2, d.getNombre());
+        sentencia.setString(3, d.getLoc());
+
+        return sentencia.executeUpdate();
+
+    }
 
 }

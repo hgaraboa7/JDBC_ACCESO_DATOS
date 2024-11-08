@@ -8,67 +8,90 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import modelo.vo.Departamento;
 
 /**
  *
  * @author hector.garaboacasas
  */
 public class HistoricoDAO {
-    
-     public void insertarHistorico(Connection conn, Integer numdep) throws SQLException {
-        
-         
 
+    public void insertarHistorico(Connection conn, Integer numdep) throws SQLException {
+
+      //  String consulta=" select D.*, sum(E.salario) as sumtotal from Departamentos D left join empleados E ON D.dept_no = E.dept_no where D.dept_no = ? group by D.dept_no";
+     
+        
+        
+        
         String consulta = "select * from Departamentos where dept_no=?";
         PreparedStatement sentencia = conn.prepareStatement(consulta);
         sentencia.setInt(1, numdep);
 
         ResultSet rs = sentencia.executeQuery();
-        
-         //hecho mal, haciendolo asi no es con consultas
-        String sumaSalarios="select salario from empleados where dept_no=?";
+
+        //manera tramposa, haciendolo asi no es con consultas
+        String sumaSalarios = "select salario from empleados where dept_no=?";
         PreparedStatement sentencia3 = conn.prepareStatement(sumaSalarios);
         sentencia3.setInt(1, numdep);
-        
-        int salario=0;
-        
+
+        int salario = 0;
+
         ResultSet rs2 = sentencia3.executeQuery();
-     
-        
-        
-     
-        while(rs2.next()){
-            
-            salario= salario + rs2.getInt(1);
-            
-            
+
+        while (rs2.next()) {
+
+            salario = salario + rs2.getInt(1);
+
         }
 
         if (rs.next()) {
-           
-        
-        
-         String consulta2 = "INSERT INTO historico (hdept_no, hdnombre, hloc, sumsal) VALUES (?, ?, ?,?);";
 
-        PreparedStatement sentencia2 = conn.prepareStatement(consulta2);
+            String consulta2 = "INSERT INTO historicos (hdept_no, hdnombre, hloc, sumsal) VALUES (?, ?, ?,?);";
 
+            PreparedStatement sentencia2 = conn.prepareStatement(consulta2);
+
+            sentencia2.setInt(1, rs.getInt(1));
+            sentencia2.setString(2, rs.getString(2));
+            sentencia2.setString(3, rs.getString(3));
+            sentencia2.setInt(4, salario);
+
+            sentencia2.executeUpdate();
+
+        }
         
         
         
-        sentencia2.setInt(1, rs.getInt(1) );
-        sentencia2.setString(2, rs.getString(2) );
-        sentencia2.setString(3, rs.getString(3));
-        sentencia2.setInt(4, salario );
+        
+        
         
 
-        sentencia2.executeUpdate();
-        
-         }
-       
-        
-        
     }
-    
-    
-    
+
+    public Departamento buscardepartamentoHistorico(Connection conn, Integer numdep) throws SQLException {
+        Departamento d = null;
+
+        String consulta = "select * from historicos where hdept_no=?";
+        PreparedStatement sentencia = conn.prepareStatement(consulta);
+        sentencia.setInt(1, numdep);
+
+        ResultSet rs = sentencia.executeQuery();
+
+        if (rs.next()) {
+            d = new Departamento(numdep, rs.getString(2), rs.getString(3));
+        }
+        return d;
+    }
+
+    public int borrarHistorico(Connection conn, Departamento d) throws SQLException {
+
+        String consulta = "DELETE FROM historicos WHERE hdept_no = ?";
+
+        PreparedStatement sentencia = conn.prepareStatement(consulta);
+
+        sentencia.setInt(1, d.getDept_no());
+
+        return sentencia.executeUpdate();
+
+    }
+
 }

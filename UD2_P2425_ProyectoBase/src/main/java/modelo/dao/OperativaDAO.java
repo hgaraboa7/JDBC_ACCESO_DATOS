@@ -26,9 +26,6 @@ int cantidad;
     try (PreparedStatement sentencia = conn.prepareStatement(consulta);
          PreparedStatement sentencia2 = conn.prepareStatement(consulta2)) {
 
-        
-        //al introducir un dato incorrecto como nºdep peta y lo reinicia a 0 o valor anterior de transaccion completada
-        // si no se pone setautomit false
         sentencia.setString(1, tipo);
         ResultSet rs = sentencia.executeQuery();
 
